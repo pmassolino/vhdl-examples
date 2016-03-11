@@ -9,7 +9,7 @@ Some VHDL examples
 - ROM
 - Dual Port RAM
 - (JK) Flip-Flop
-- 8 bit Linear Sshift Feedback Register
+- 8 bit Linear Shift Feedback Register
 - MUX 4 to 1
 - Shift Register
 - State Machine
