@@ -46,7 +46,7 @@ begin
 
 process (clk)                                                
 begin                                                        
-	if clk'event and clk = '1' then  
+	if(rising_edge(clk)) then  
 		data_out <= memory_ram(to_integer(unsigned(address)));      
 	end if;                                                      
 end process;             

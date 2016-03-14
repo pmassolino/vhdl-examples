@@ -43,7 +43,7 @@ q <= internal_state(4);
 
 process(clk)
     begin
-        if(clk'event and clk = '1')then
+        if(rising_edge(clk))then
             internal_state <= internal_state(3 downto 0) & d;
         end if;
 end process;

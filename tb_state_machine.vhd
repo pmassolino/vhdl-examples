@@ -35,7 +35,7 @@ architecture Behavioral of tb_state_machine is
 component state_machine
     Port (
         clk : in  STD_LOGIC;
-        rst : in  STD_LOGIC;
+        arst : in  STD_LOGIC;
         i : in  STD_LOGIC;
         j : in  STD_LOGIC;
         q : out  STD_LOGIC_VECTOR (2 downto 0)
@@ -45,8 +45,9 @@ end component;
 signal clk : STD_LOGIC := '0';
 signal clk_generator_finish : STD_LOGIC := '0';
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
-signal test_rst : STD_LOGIC;
+signal test_arst : STD_LOGIC;
 signal test_i : STD_LOGIC;
 signal test_j : STD_LOGIC;
 signal test_q : STD_LOGIC_VECTOR(2 downto 0);
@@ -56,7 +57,7 @@ begin
 test : state_machine
     Port Map(
         clk => clk,
-		  rst => test_rst,
+		  arst => test_arst,
         i => test_i,
 		  j => test_j,
         q => test_q
@@ -74,10 +75,11 @@ end process;
 
 process
     begin
-		test_rst <= '1';
+		test_arst <= '0';
+		wait for tb_delay;
 		wait for PERIOD/2;
 		assert test_q = "001" report "Error in State Machine" severity FAILURE;
-		test_rst <= '0';
+		test_arst <= '1';
 		test_i <= '0';
 		test_j <= '0';
 		wait for PERIOD;
@@ -109,7 +111,9 @@ process
 		clk_generator_finish <= '1';
 		wait for PERIOD;
 		assert test_q = "111" report "Error in State Machine" severity FAILURE;
+		test_arst <= '0';
 		wait for PERIOD/2;
+		assert test_q = "101" report "Error in State Machine" severity FAILURE;
 		test_bench_finish <= '1';
     wait;
 end process;

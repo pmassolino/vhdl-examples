@@ -44,6 +44,7 @@ component mux4x1
 end component;
 
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_a : STD_LOGIC;
 signal test_b : STD_LOGIC;
@@ -71,6 +72,7 @@ begin
 	 test_c <= '0';
     test_d <= '0';
 	 test_sel <= "00";
+	 wait for tb_delay;
 	 wait for PERIOD/2;
 	 assert test_o = '1' report "Error Mux in 4x1 " severity FAILURE;
 	 wait for PERIOD/2;

@@ -42,6 +42,7 @@ component xor_gate
 end component;
 
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_a : STD_LOGIC_VECTOR(7 downto 0);
 signal test_b : STD_LOGIC_VECTOR(7 downto 0);
@@ -63,6 +64,7 @@ variable true_c : STD_LOGIC_VECTOR(7 downto 0);
 begin
     test_a <= X"00";
     test_b <= X"00";
+	 wait for tb_delay;
 	 wait for PERIOD/2;
     true_a := X"00";
     true_b := X"00";

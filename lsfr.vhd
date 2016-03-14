@@ -44,13 +44,17 @@ q <= internal_state;
 
 lsfr_input <= internal_state(7) xor internal_state(5) xor internal_state(4) xor internal_state(3);
 
-process(rst,clk)
-    begin
-	     if(rst = '1') then
+process(clk)
+	begin
+		if(rising_edge(clk))then
+			if(rst = '0') then
 		      internal_state <= "00000001";
-        elsif(clk'event and clk = '1')then
-            internal_state <= internal_state(6 downto 0) & lsfr_input;
-        end if;
+			else
+				internal_state <= internal_state(6 downto 0) & lsfr_input;
+			end if;
+		else
+			null;
+		end if;
 end process;
 
 

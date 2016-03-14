@@ -57,8 +57,8 @@ signal test_data_out_b : STD_LOGIC_VECTOR(7 downto 0);
 
 signal clk : STD_LOGIC := '0';
 signal clk_generator_finish : STD_LOGIC := '0';
-
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 begin
 
@@ -86,12 +86,13 @@ end process;
 
 process
 begin
-	wait for PERIOD/2;
 	test_data_in_a <= X"00";
+	test_data_in_b <= X"00";
 	test_rw_a <= '1';
 	test_address_a <= "00" & X"00";
 	test_rw_b <= '0';
 	test_address_b <= "00" & X"00";
+	wait for tb_delay;
 	wait for PERIOD;
 	test_address_a <= "00" & X"01";
 	test_address_b <= "00" & X"00";

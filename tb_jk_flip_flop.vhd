@@ -45,6 +45,7 @@ end component;
 signal clk : STD_LOGIC := '0';
 signal clk_generator_finish : STD_LOGIC := '0';
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_j : STD_LOGIC;
 signal test_k : STD_LOGIC;
@@ -81,6 +82,7 @@ process
     begin
 		test_j <= '0';
 		test_k <= '0';
+		wait for tb_delay;
 		wait for PERIOD/2;
 		test_j <= '0';
 		test_k <= '1';

@@ -43,17 +43,17 @@ begin
 
 q <= internal_state;
 
-process(clk, rst)
-    begin
-        if (rst = '0') then
-            internal_state <= '0';
-		  elsif(clk'event and clk = '1')then
-            if(ce = '1') then
-                internal_state <= d;
-            else
-                null;
-            end if;
-        end if;
+process(clk)
+	begin
+		if(rising_edge(clk))then
+			if (rst = '0') then
+				internal_state <= '0';
+         elsif(ce = '1') then
+				internal_state <= d;
+			else
+				null;
+			end if;
+		end if;
 end process;
 
 end Behavioral;

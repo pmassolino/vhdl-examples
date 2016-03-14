@@ -45,21 +45,21 @@ begin
 
 q <= std_logic_vector(internal_counter);
 
-process(clk, rst)
-    begin
-        if (rst = '0') then
-            internal_counter <= (others => '0');
-		  elsif(rising_edge(clk))then
-            if(ce = '1') then
-				    if(load = '1') then
-                    internal_counter <= unsigned(d);
-					 else
-					     internal_counter <= internal_counter + 1;
-					 end if;
-            else
-                null;
-            end if;
-        end if;
+process(clk)
+	begin
+		if(rising_edge(clk))then
+			if (rst = '0') then
+				internal_counter <= (others => '0');
+			elsif(ce = '1') then
+				if(load = '1') then
+					internal_counter <= unsigned(d);
+				else
+					internal_counter <= internal_counter + 1;
+				end if;
+			else
+				null;
+			end if;
+		end if;
 end process;
 
 end Behavioral;

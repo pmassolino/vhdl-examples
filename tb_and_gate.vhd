@@ -41,6 +41,7 @@ component and_gate
 end component;
 
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_a : STD_LOGIC;
 signal test_b : STD_LOGIC;
@@ -62,6 +63,7 @@ variable true_c : STD_LOGIC;
 begin
     test_a <= '0';
     test_b <= '0';
+	 wait for tb_delay;
 	 wait for PERIOD/2;
     true_a := '0';
     true_b := '0';

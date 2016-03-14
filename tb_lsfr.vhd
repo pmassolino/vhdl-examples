@@ -43,6 +43,7 @@ end component;
 signal clk : STD_LOGIC := '0';
 signal clk_generator_finish : STD_LOGIC := '0';
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_rst : STD_LOGIC;
 signal test_q : STD_LOGIC_VECTOR(7 downto 0);
@@ -94,13 +95,14 @@ end process;
 
 process
     begin
-		wait for PERIOD/2;
-		test_rst <= '1';
-		wait for PERIOD;
 		test_rst <= '0';
+		test_rst <= '0';
+		wait for tb_delay;
+		wait for PERIOD;
+		test_rst <= '1';
 		for i in 0 to 254 loop
-          assert test_q = true_q(i) report "LSFR value error in position " & integer'image(i) severity FAILURE;
-			 wait for PERIOD;
+      	 assert test_q = true_q(i) report "LSFR value error in position " & integer'image(i) severity FAILURE;
+		    wait for PERIOD;
       end loop;
 		clk_generator_finish <= '1';
 		test_bench_finish <= '1';

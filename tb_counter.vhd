@@ -26,7 +26,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity tb_counter is
     Generic (
-		PERIOD : time := 10 ns
+		PERIOD : time := 40 ns
     );
 end tb_counter;
 
@@ -46,6 +46,7 @@ end component;
 signal clk : STD_LOGIC := '0';
 signal clk_generator_finish : STD_LOGIC := '0';
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_d : STD_LOGIC_VECTOR(9 downto 0);
 signal test_ce : STD_LOGIC;
@@ -77,11 +78,11 @@ end process;
 
 process
     begin
-		wait for PERIOD/2;
 		test_d <= "00" & X"00";
 		test_ce <= '0';
 		test_rst <= '0';
 		test_load <= '0';
+		wait for tb_delay;
 		wait for PERIOD;
 		assert test_q = "00" & X"00" report "Error in Counter Reset" severity FAILURE;
 		test_ce <= '1';

@@ -49,8 +49,8 @@ signal test_data_out : STD_LOGIC_VECTOR(7 downto 0);
 
 signal clk : STD_LOGIC := '0';
 signal clk_generator_finish : STD_LOGIC := '0';
-
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 begin
 
@@ -74,10 +74,10 @@ end process;
 
 process
 begin
-	wait for PERIOD/2;
 	test_data_in <= X"00";
 	test_rw <= '1';
 	test_address <= "00" & X"00";
+	wait for tb_delay;
 	wait for PERIOD;
 	test_address <= "00" & X"01";
 	wait for PERIOD;

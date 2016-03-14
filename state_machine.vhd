@@ -28,7 +28,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity state_machine is
     Port (
         clk : in  STD_LOGIC;
-        rst : in  STD_LOGIC;
+        arst : in  STD_LOGIC;
         i : in  STD_LOGIC;
         j : in  STD_LOGIC;
         q : out  STD_LOGIC_VECTOR (2 downto 0)
@@ -42,9 +42,9 @@ signal actual_state, next_state : State;
 
 begin
 
-Clock: process (rst, clk)
+Clock: process (arst, clk)
 begin
-    if (rst = '1') then
+    if (arst = '0') then
         actual_state <= S0;
     elsif (clk'event and clk = '1') then
         actual_state <= next_state;

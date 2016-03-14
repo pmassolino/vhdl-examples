@@ -43,12 +43,15 @@ component adder
 end component;
 
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_a : STD_LOGIC_VECTOR(7 downto 0);
 signal test_b : STD_LOGIC_VECTOR(7 downto 0);
 signal test_cin : STD_LOGIC_VECTOR(0 downto 0);
 signal test_o : STD_LOGIC_VECTOR(7 downto 0);
 signal test_cout : STD_LOGIC_VECTOR(0 downto 0);
+
+
 
 begin
 
@@ -66,6 +69,7 @@ begin
 	 test_a <= X"AE";
 	 test_b <= X"34";
     test_cin <= "0";
+	 wait for tb_delay;
 	 wait for PERIOD/2;
 	 assert test_o = X"E2" and test_cout = "0" report "Error Adder " severity FAILURE;
 	 wait for PERIOD/2;

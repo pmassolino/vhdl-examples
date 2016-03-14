@@ -43,8 +43,9 @@ component flip_flop
 end component;
 
 signal clk : STD_LOGIC := '0';
-signal clk_generator_finish : STD_LOGIC := '0';
 signal test_bench_finish : STD_LOGIC := '0';
+signal clk_generator_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_d : STD_LOGIC;
 signal test_ce : STD_LOGIC;
@@ -79,6 +80,7 @@ process
 		test_d <= '0';
 		test_ce <= '0';
 		test_rst <= '1';
+		wait for tb_delay;
 		wait for PERIOD/2;
 		test_d <= '0';
 		test_ce <= '1';
@@ -93,13 +95,13 @@ process
 		test_ce <= '0';
 		wait for PERIOD;
 		assert test_q = '1' report "Error in Flip Flop clock enable disabled" severity FAILURE;
-		clk_generator_finish <= '1';
 		wait for PERIOD;
 		test_rst <= '0';
-		wait for PERIOD/2;
+		wait for PERIOD;
 		assert test_q = '0' report "Error in Flip Flop reset" severity FAILURE;
-		wait for PERIOD/2;
+		wait for PERIOD;
 	   test_rst <= '1';
+		clk_generator_finish <= '1';
 		test_bench_finish <= '1';
     wait;
 end process;

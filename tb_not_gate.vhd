@@ -41,6 +41,7 @@ component not_gate
 end component;
 
 signal test_bench_finish : STD_LOGIC := '0';
+constant tb_delay : time := (3*PERIOD/4);
 
 signal test_a : STD_LOGIC_VECTOR(5 downto 0);
 signal true_a : STD_LOGIC_VECTOR(5 downto 0);
@@ -62,6 +63,7 @@ process
 begin
     test_a <= "000000";
     true_a <= "000000";
+	 wait for tb_delay;
 	 wait for PERIOD/2;
 	 assert true_o = test_o report "Error in XOR gate" severity FAILURE;
 	 wait for PERIOD/2;
