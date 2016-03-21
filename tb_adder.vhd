@@ -27,7 +27,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity tb_adder is
     Generic (
-		PERIOD : time := 10 ns
+		PERIOD : time := 70 ns
     );
 end tb_adder;
 
